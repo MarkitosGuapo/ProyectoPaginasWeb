@@ -1,0 +1,22 @@
+# 📚 Réplica del sitio web de Porrúa (solo diseño)
+
+¡Hola! Este proyecto es una **réplica visual** del sitio web de **Porrúa**, una de las librerías más conocidas de México.  
+El objetivo principal es **simular únicamente el diseño** usando **HTML** y **Bootstrap CSS** — *no hay backend, base de datos ni carrito funcional* (pero igual se ve bonito, ¿no? 😄).
+
+> Si tratas de comprar un libro aquí… lo más que te llevas es un buen `div`.
+
+## 🎯 Objetivo
+
+- Recrear el diseño visual del sitio de Porrúa
+- Usar HTML y Bootstrap para maquetar secciones y estilo
+- Servir como práctica para proyectos front-end básicos
+
+## 🛠️ Tecnologías utilizadas
+
+- **HTML5**
+- **Bootstrap CSS 
+- (y muchas ganas)
+
+
+
+
