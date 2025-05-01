@@ -1,0 +1,1194 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.5/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-SgOJa3DmI69IUzQ2PVdRZhwQ+dy64/BUtbMJw1MZ8t5HZApcHrRKUc4W0kG879m7" crossorigin="anonymous">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <title>Porrúa</title>
+    <style>
+        /* Estilos del  encabezado */
+        .header-porrua {
+            background-color: white;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo-porrua {
+            font-size: 24px;
+            font-weight: bold;
+            color: #000;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-porrua img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .search-container {
+            width: 50%;
+            display: flex;
+        }
+
+        .search-container input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+        }
+
+        .search-container button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-actions span {
+            margin-left: 20px;
+            cursor: pointer;
+        }
+
+        .user-actions img {
+            width: 30px;
+            height: auto;
+            object-fit: contain;
+            margin-left: 10px;
+        }
+
+        /* Estilos originales */
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f9f9f9;
+            color: #000;
+            padding-top: 80px;
+        }
+
+        /* Cuerpo */
+        .cuerpo-ancho {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .cuerpo-ancho img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cuerpo-ancho .grid-libros {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .cuerpo-ancho .libro {
+            background: white;
+            border: none;
+            width: 180px;
+            padding: 10px;
+            text-align: center;
+            color: #000;
+        }
+
+        /*carrusel*/
+        .carousel-control-prev,
+        .carousel-control-next {
+            position: absolute;
+            top: 80%;
+            transform: translateY(-50%);
+            z-index: 1;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: black;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background-color: black;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 80px;
+            /* Ajustado para el header fixed */
+            z-index: 999;
+        }
+
+        .navbar a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 15px;
+            display: block;
+            font-weight: bold;
+            font-size: 16px;
+        }
+
+        .navbar ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+        }
+
+        .navbar li {
+            position: relative;
+        }
+
+        .navbar .dropdown-menu {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            min-width: 150px;
+        }
+
+        .navbar .dropdown-menu a {
+            color: #333;
+            padding: 10px 15px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .navbar li:hover .dropdown-menu {
+            display: block;
+        }
+
+        /* Banner */
+        .banner {
+            background-color: #e0f2f1;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            overflow: hidden;
+            width: 100%;
+        }
+
+        .banner img {
+            width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+        }
+
+        /* Sección de libros */
+        .precio {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: #e26930;
+            font-size: large;
+        }
+
+        .btn-agregar {
+            color: white;
+            background-color: #e26930;
+            border-radius: 0px;
+            border: none;
+        }
+
+        .libro .imagen img {
+            max-width: 200%;
+            width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 0px;
+        }
+
+        .seccion {
+            padding: 0 30px;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        .seccion h2 {
+            margin-bottom: 20px;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            color: #000 solid 1px;
+        }
+
+        .grid-libros {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .libro {
+            background: white;
+            border: none;
+            width: 180px;
+            padding: 10px;
+            text-align: center;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 350px;
+        }
+
+        .libro .acciones {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .libro .imagen {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ddd;
+        }
+
+        .libro .imagen img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+
+        .imagen {
+            background-color: #ddd;
+            height: 200px;
+            margin-bottom: 10px;
+        }
+
+        .titulo {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .autor {
+            color: #666;
+            font-size: 14px;
+        }
+
+
+
+        /* Estilos del pie de página */
+        .footer {
+            background-color: #000;
+            color: #fff;
+            padding: 40px 20px;
+            border-top: 1px solid #444;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        .footer-section {
+            flex: 1 1 200px;
+
+            margin-bottom: 20px;
+        }
+
+        .footer-section h3 {
+            color: whitesmoke;
+
+            margin-bottom: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            text-transform: uppercase;
+
+        }
+
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-section ul li a:hover {
+            color: #fff;
+
+        }
+
+        .footer-section p {
+            color: #ccc;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+
+        .footer-section strong {
+            color: white;
+
+        }
+
+        .copyright {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #000;
+            color: #aaa;
+            font-size: 14px;
+            border-top: 1px solid #000;
+        }
+
+        @media (max-width: 768px) {
+            .footer-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .footer-section {
+                text-align: center;
+
+            }
+        }
+
+        .columna {
+            margin: 10px;
+        }
+
+        .columna h4 {
+            margin-bottom: 10px;
+        }
+
+        .footer .columna {
+            margin: 10px;
+            border-top: 1px solid white;
+            padding-top: 10px;
+        }
+
+        /* Lanzamientos */
+        .lanzamientos {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: #fff;
+        }
+
+        .descripcion {
+            font-size: 16px;
+            color: #444;
+            margin-bottom: 20px;
+        }
+
+        .titulo-lanzamientos {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .subtitulo-lanzamientos {
+            font-size: 16px;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .botones-lanzamientos {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .boton-lanzamiento {
+            padding: 12px 24px;
+            background-color: #e0e0e0;
+            border: none;
+            border-radius: 4px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .boton-lanzamiento:hover {
+            background-color: #d0d0d0;
+        }
+
+        /* Imagen ancha propiedades de ajuste */
+        .imagen-ancha img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+            display: block;
+        }
+
+        .imagen-ancha {
+            margin: 40px 0;
+        }
+
+        /* Imagenes centradas */
+        .imagenes-centradas {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .imagenes-centradas img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /*imagenes distribuidas*/
+        section.imagenes-distribuidas {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        section.imagenes-distribuidas img {
+            max-width: 30%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .imagenes-distribuidas {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 20px 0;
+            padding: 0 10px;
+        }
+
+        .imagenes-distribuidas img {
+            max-width: 45%;
+            height: auto;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Lo más leído */
+
+        .lo-mas-lido {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            padding: 20px;
+            background-color: #f9f9f9;
+            margin: 20px 0;
+        }
+
+        .lo-mas-lido .grid-libros {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .lo-mas-lido .libro {
+            background: white;
+            border: none;
+            width: 180px;
+            padding: 10px;
+            text-align: center;
+            color: #000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 350px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Encabezado-->
+    <header class="header-porrua">
+        <div class="logo-porrua">
+            <img src="https://porrua.mx/media/logo/websites/1/LogoPORRUAp_1.png" alt="">
+
+            <div class="logo-placeholder"></div>
+
+        </div>
+
+        <div class="search-container">
+            <input type="text" placeholder="Buscar libros, autores...">
+            <button><i class="fas fa-search"></i></button>
+        </div>
+
+        <div class="user-actions">
+       
+            <img src="https://static.vecteezy.com/system/resources/previews/002/318/271/non_2x/user-profile-icon-free-vector.jpg" alt="">
+            <img src="https://static.vecteezy.com/system/resources/previews/007/790/778/original/shopping-cart-icon-vector.jpg"
+                alt="">
+        </div>
+    </header>
+
+    <!-- Barra de navegación -->
+    <section>
+        <nav class="navbar navbar-expand-lg">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="#">Libros</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <!-- Botón desplegable 1 -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Ebooks y Audio Libros
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Kobo app</a></li>
+                                <li><a class="dropdown-item" href="#">Kobo ereaders</a></li>
+                            </ul>
+                        </li>
+                        <!-- Botón desplegable 2 -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Productos
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#" style="color: #000">Tecnologia</a>
+                                    <a style="color: #666;">Equipo tecnologia</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#">Regalos Hogar <br> y Estilo</a></li>
+                                <li><a class="dropdown-item" href="#">Papeleria</a></li>
+                                <li><a class="dropdown-item" href="#">Entretenimiento <br> y Didacticos</a></li>
+                            </ul>
+                        </li>
+                        <!-- Botón desplegable 3 -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Oportunidades
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Remates</a></li>
+                                <li><a class="dropdown-item" href="#">Ofertas</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+
+                            </ul>
+                        </li>
+                        <!-- Botón desplegable 4 -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Servicios
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Digital</a></li>
+                                <li><a class="dropdown-item" href="#">Print</a></li>
+                            </ul>
+                        </li>
+                        <!-- Botón desplegable 5 -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Monederos
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Monedero <br> electronico <br> porrua</a></li>
+                                <li><a class="dropdown-item" href="#">Monedero <br> profesor <br> porrua</a></li>
+                            </ul>
+                        </li>
+                        <!-- Botón desplegable 6 -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Sucursales
+                            </a>
+                            <ul class="dropdown-menu">
+
+                            </ul>
+                        </li>
+                        <!-- Botón desplegable 7 -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                                aria-expanded="false">
+                                Catálogos Porrúa
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#">Biblioteca porrua</a></li>
+                                <li><a class="dropdown-item" href="#">Biblioteca Juvenil</a></li>
+                                <li><a class="dropdown-item" href="#">Cuantos leen</a></li>
+                                <li><a class="dropdown-item" href="#">Gusano de Luz <br> y Quarto de hora</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </section>
+
+    <!-- Carrusel -->
+    <section class="banner">
+        <div id="carouselExample" class="carousel slide">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <img src="https://i.ytimg.com/vi/rpZFHhG00oI/maxresdefault.jpg" class="d-block w-100"
+                        alt="Imagen 1">
+                </div>
+                <div class="carousel-item">
+                    <img src="rhttps://i.pinimg.com/originals/aa/e6/f6/aae6f6d27c0c4e9174006031746cfefe.jpg"
+                        class="d-block w-100" alt="Imagen 2">
+                </div>
+                <div class="carousel-item">
+                    <img src="https://bibliadelespiritusanto.com/wp-content/uploads/2022/11/1PANTALLA-1280X726-px-1024x581.png"
+                        class="d-block w-100" alt="Imagen 3">
+                </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Lanzamientos -->
+    <hr style="border-top: 1px solid #000; margin: 20px 0;">
+    <section class="lanzamientos">
+        <h2 class="titulo-lanzamientos">NUEVOS LANZAMIENTOS</h2>
+        <p class="descripcion">
+            15 millones de libros impresos, libros electrónicos y audiolibros, listos para llegar a tus manos.
+        </p>
+        <p class="subtitulo-lanzamientos">Conoce los títulos más relevantes</p>
+        <div class="botones-lanzamientos">
+            <button class="boton-lanzamiento">Novedad</button>
+            <button class="boton-lanzamiento">B. Jurídica</button>
+        </div>
+    </section>
+
+    <section class="seccion">
+
+        <div class="grid-libros">
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://descubierta.es/wp-content/uploads/2022/06/Cover.jpg" alt="">
+                </div>
+                <div class="titulo">Cada Historia Cuenta</div>
+                <div class="autor">Varios Autores</div>
+                <div class="precio">$250.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://silverlibros.com/wp-content/uploads/2022/02/9788498382662-HARRY-POTTER-1-Y-LA-PIEDRA-FILOSOFAL-PORTADA-2010.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">Harry Potter y la piedra filosofal</div>
+                <div class="autor">Joanne Rowling</div>
+                <div class="precio">$300.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://edit.org/editor/json/2019/10/02/6/a/6a4288e8e35db864cfb8fa20662e07a1_edit.org.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">Mas Alla de las Estrellas</div>
+                <div class="autor">Matt Dyamond</div>
+                <div class="precio">$180.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://www.lavanguardia.com/libros/images/posters/2022/10/9788419087492-image.jpg?v=1"
+                        alt="">
+                </div>
+                <div class="titulo">El Principito (remasterizado)</div>
+                <div class="autor">Antonie de Saint-Exupery</div>
+                <div class="precio">$420.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://pm1.narvii.com/6125/28c91f0044fd3b235173b5b185c938de141702df_hq.jpg" alt="">
+                </div>
+                <div class="titulo">THE Amazing Spider-Man</div>
+                <div class="autor">M. Farlane</div>
+                <div class="precio">$600.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://images.cdn3.buscalibre.com/fit-in/360x360/2f/58/2f581fa65032b05c2f54141550812da6.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">AURONPLAY el juego del hater</div>
+                <div class="autor">Raul Alvarez</div>
+                <div class="precio">$220.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+        </div>
+    </section>
+    <!-- imagen-->
+    <section class="imagen-ancha">
+        <img src="https://porrua.mx/media/wysiwyg/Banner_Mayo_3.jpg" alt="Imagen Ancha">
+    </section>
+
+
+    <!-- Libros destacados -->
+    <hr style="border-top: 1px solid #000; margin: 20px 0;">
+    <section class="seccion">
+        <h2>Destacados</h2>
+        <div class="grid-libros">
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://1.bp.blogspot.com/-CjH4DJjKGoo/VVeY8YDkN4I/AAAAAAAAKCA/rswGyGcSgGo/s1600/Amazing%2BFantasy%2B15.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">Amazing Fantasy</div>
+                <div class="autor">Varios Autores</div>
+                <div class="precio">$800.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://m.media-amazon.com/images/I/41HXoZkyhgL._SY445_SX342_.jpg" alt="">
+                </div>
+                <div class="titulo">Deja de Ser tu</div>
+                <div class="autor">Urano</div>
+                <div class="precio">$800.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1673386952i/75716159.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">La Santa Biblia</div>
+                <div class="autor">Varios Autores</div>
+                <div class="precio">$180.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://imagessl0.casadellibro.com/a/l/t0/00/9788490435700.jpg" alt="">
+                </div>
+                <div class="titulo">Si te rindes pierdes</div>
+                <div class="autor">Ismael prego</div>
+                <div class="precio">$220.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="http://www.elyonbooks.com/wp-content/uploads/2021/05/91cN2RE1l0L-1004x1536.jpg" alt="">
+                </div>
+                <div class="titulo">La cabaña</div>
+                <div class="autor">Paul Young</div>
+                <div class="precio">$800.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://www.agapea.com/Diana-Editorial/Habitos-atomicos-i6n19380188.jpg" alt="">
+                </div>
+                <div class="titulo">Habitos Atomicos</div>
+                <div class="autor">James Clear</div>
+                <div class="precio">$180.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+        </div>
+    </section>
+
+    <br>
+
+    <!--Imagenes-->
+    <section class="imagenes-centradas" style="background-color: #ddd">
+        <img src="https://porrua.mx/media/wysiwyg/Banner-2_NomenOmen.jpg" alt="Imagen 1">
+        <img src="https://porrua.mx/media/wysiwyg/Banner_MauraAbril.jpg" alt="Imagen 2">
+    </section>
+
+
+    <!--Cuerpo-->
+    <section class="cuerpo-ancho">
+
+        <section class="imagenes-centradas">
+            <img src="https://porrua.mx/media/wysiwyg/BANNER_LibrosSinFronteras_2.jpg" alt="Imagen 1">
+            <img src="https://porrua.mx/media/wysiwyg/BANNER_Innovacion_1.jpg" alt="Imagen 2">
+
+        </section>
+
+        <div class="grid-libros">
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://www.rockandpop.cl/wp-content/uploads/2020/09/c23faf25264106947c860b355ddf36ff-668x1024.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">Los Amantes praga</div>
+                <div class="autor">Alyson Richman</div>
+                <div class="precio">$300.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://i.blogs.es/408869/mujer/1024_2000.jpeg" alt="">
+                </div>
+                <div class="titulo">Mujercita</div>
+                <div class="autor">Louisa May</div>
+                <div class="precio">$280.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://espaciolibros.com/wp-content/uploads/2019/06/mejores-libros-juveniles-amigo-imaginario-amazon-600x908.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">Amigo imaginario</div>
+                <div class="autor">Stephen Chbousky</div>
+                <div class="precio">$180.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://espaciolibros.com/wp-content/uploads/2019/06/mejores-libros-juveniles-la-bella-y-la-bestia-amazon.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">La bella y la bestia</div>
+                <div class="autor">Liz Braswell</div>
+                <div class="precio">$180.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://es.naufragia.com/wp-content/uploads/2021/04/71z7OGtw8wL.jpg" alt="">
+                </div>
+                <div class="titulo">IT</div>
+                <div class="autor">Stephen king</div>
+                <div class="precio">$180.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://i.pinimg.com/736x/c0/7f/03/c07f0335aab7d6b4d32d90ab7ba9e7d5.jpg" alt="">
+                </div>
+                <div class="titulo">El hobbit</div>
+                <div class="autor">J.R.R Tolkien</div>
+                <div class="precio">$590.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+        </div>
+    </section>
+
+    <section class="imagenes-distribuidas">
+        <img src="https://porrua.mx/media/wysiwyg/BannersRdM_Napoleon.jpg" alt="imagen 1">
+        <img src="https://porrua.mx/media/wysiwyg/BannersRdM_Monet.jpg" alt="imagen 2">
+        <img src="https://porrua.mx/media/wysiwyg/BannersRdM_MujerDormida.jpg" alt="imagen 3">
+    </section>
+    <br>
+    <!--Imagenes-->
+    <section class="imagenes-distribuidas">
+        <img src="https://porrua.mx/media/wysiwyg/1x1web_MarioVargasLlosa.jpg" alt="imagen 1">
+        <img src="https://porrua.mx/media/wysiwyg/1x1web_Dia-Poesia.jpg" alt="imagen 1">
+        <div class="libro">
+            <div class="imagen">
+                <img src="https://i.pinimg.com/736x/29/77/cb/2977cb69a69e8f9e944e8d3869e00e58.jpg" alt="">
+            </div>
+            <div class="titulo">Viaje al centro de la tierra</div>
+            <div class="autor">Julio Verne</div>
+            <div class="precio">$690.00</div>
+            <button class="btn-agregar">Agregar al carrito</button>
+            <i class="fas fa-heart corazon"></i>
+        </div>
+        <div class="libro">
+            <div class="imagen">
+                <img src="https://i.pinimg.com/originals/c0/95/9f/c0959f50b779e5349a39c6da6bef5952.jpg" alt="">
+            </div>
+            <div class="titulo">Diario <br> de <br> ANNA FRANK</div>
+            <div class="autor">Anna Frank</div>
+            <div class="precio">$790.00</div>
+            <button class="btn-agregar">Agregar al carrito</button>
+            <i class="fas fa-heart corazon"></i>
+        </div>
+        <div class="libro">
+            <div class="imagen">
+                <img src="https://www.agapea.com/Austral/De-la-Tierra-a-la-Luna-i6n18563096.jpg" alt="">
+            </div>
+            <div class="titulo">De <br> la  <br> tierra <br> a la luna</div>
+            <div class="autor">Julio Verne</div>
+            <div class="precio">$790.00</div>
+            <button class="btn-agregar">Agregar al carrito</button>
+            <i class="fas fa-heart corazon"></i>
+        </div>
+        <div class="libro">
+            <div class="imagen">
+                <img src="http://2.bp.blogspot.com/-IMIwP44mC4w/T-92cUSfQNI/AAAAAAAABB4/8cfBVOr7vnI/s1600/El+faro+del+fin+del+mundo.jpg" alt="">
+            </div>
+            <div class="titulo">El faro del fin del mundo</div>
+            <div class="autor">Julio Verne</div>
+            <div class="precio">$790.00</div>
+            <button class="btn-agregar">Agregar al carrito</button>
+            <i class="fas fa-heart corazon"></i>
+        </div>
+        <br>
+    </section>
+    <br>
+    <!--lo mas leido-->
+    <hr style="border-top: 1px solid #000; margin: 20px 0;">
+    <section class="lo-mas-lido">
+
+        <h2 class="titulo-lanzamientos"> Lo más leído</h2>
+        <p class="subtitulo-lanzamientos">Conoce los títulos más relevantes</p>
+        <div class="grid-libros">
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://www.aphernandez.com/uploads/2/5/5/8/25584691/loca-academia-pirata-portada-letra-ok_1_orig.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">Piratas</div>
+                <div class="autor">A.P Hernandez</div>
+                <div class="precio">$80.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://www.mejoreslibros.top/wp-content/uploads/2021/03/La-Cupula-Libro-1338x2048.jpg"
+                        alt="">
+                </div>
+                <div class="titulo">La copula</div>
+                <div class="autor">Stephen King</div>
+                <div class="precio">$590.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://cdn.culturagenial.com/es/imagenes/la-iliada-portada-cke.jpg" alt="">
+                </div>
+                <div class="titulo">La Ilada</div>
+                <div class="autor">Fontana</div>
+                <div class="precio">$790.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://img.libraccio.it/images/9788858015100_0_500_0_75.jpg" alt="">
+                </div>
+                <div class="titulo">Peter Pan</div>
+                <div class="autor">James Mattew</div>
+                <div class="precio">$390.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+        </div>
+    </section>
+
+
+
+    <br>
+    <!--juridico-->
+    <hr style="border-top: 1px solid #000; margin: 20px 0;">
+    <section class="lo-mas-lido">
+        <h2 class="titulo-lanzamientos">Juridicos</h2>
+        <p class="subtitulo-lanzamientos">Informativos</p>
+        <div class="grid-libros">
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://porrua.mx/media/catalog/product/l/9/l9789700773438-2.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=330&width=220&canvas=220:330"
+                        alt="">
+                </div>
+                <div class="titulo">Derecho Administrativo <br> primer curso</div>
+
+                <div class="precio">$1000.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://porrua.mx/media/catalog/product/imp/ort/l9789700745008.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=330&width=220&canvas=220:330"
+                        alt="">
+                </div>
+                <div class="titulo">Drecho civil Mexicano <br> volumen II</div>
+
+                <div class="precio">$890.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+            <div class="libro">
+                <div class="imagen">
+                    <img src="https://porrua.mx/media/catalog/product/l/9/l9786070914690-1.jpg?quality=80&bg-color=255,255,255&fit=bounds&height=330&width=220&canvas=220:330"
+                        alt="">
+                </div>
+                <div class="titulo">Drecho Penal Mexicano <br> Parte General</div>
+
+                <div class="precio">$790.00</div>
+                <button class="btn-agregar">Agregar al carrito</button>
+                <i class="fas fa-heart corazon"></i>
+            </div>
+        </div>
+    </section>
+
+
+    <br>
+
+    <!--Imagenes finales-->
+    <hr style="border-top: 1px solid #000; margin: 20px 0;">
+    <section class="imagenes-distribuidas">
+        <img src="https://porrua.mx/media/wysiwyg/ComoLeerEbooks_9.jpg" alt="imagen 1">
+        <img src="https://porrua.mx/media/wysiwyg/ComprarAudiolibro_8.jpg" alt="imagen 1">
+        <img src="https://i.pinimg.com/originals/b5/77/10/b577104019943f27c37dde0f575379e0.jpg" alt="imagen 1">
+
+
+        <br>
+    </section>
+    <br>
+    <hr style="border-top: 1px solid #000; margin: 20px 0;">
+    <!-- Pie de página -->
+
+    <!-- Separador -->
+    <div class="separator"></div>
+
+
+    <!-- Pie de página -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-section">
+                <h3>NUESTRA COMPAÑÍA</h3>
+                <ul>
+                    <li><a href="#">Contacto</a></li>
+                    <li><a href="#">Historia</a></li>
+                    <li><a href="#">Misión / Visión</a></li>
+                    <li><a href="#">Valores</a></li>
+                    <li><a href="#">Actualidad</a></li>
+                    <li><a href="#">Sucursales</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>MI CUENTA</h3>
+                <ul>
+                    <li><a href="#">Ingrese a Mi Cuenta</a></li>
+                    <li><a href="#">Mis Pedidos</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>POLÍTICAS</h3>
+                <ul>
+                    <li><a href="#">Procedimientos</a></li>
+                    <li><a href="#">Cambios y Devoluciones</a></li>
+                    <li><a href="#">Términos y Condiciones</a></li>
+                    <li><a href="#">Puntos Porrúa</a></li>
+                    <li><a href="#">Ley Federal de Protección de Datos</a></li>
+                    <li><a href="#">Cookies</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>SERVICIOS</h3>
+                <ul>
+                    <li><a href="#"><strong>Porrúa Digital</strong></a></li>
+                    <li><a href="#"><strong>Porrúa Tecnología</strong></a></li>
+                    <li><a href="#"><strong>Porrúa Print</strong></a></li>
+                    <li><a href="#">Prórroga</a></li>
+                    <li><a href="#">Libros Personalizados</a></li>
+                    <li><a href="#">Publicidad y Papelería Personalizada</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>INFORMACIÓN</h3>
+                <p>
+                    <strong>Dirección de Corporativo</strong><br>
+                    República de Argentina 17, Centro<br>
+                    <strong>Teléfono:</strong> (0155) 580-3535<br>
+                    o llame sin costo al 01.800.09.23.00<br>
+                    <strong>Correo electrónico:</strong> atencion@porrua.com
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Copyright -->
+    <div class="copyright">
+        © Librería de Porrúa Hermanos y Cía. S.A. de C.V. Todos los derechos reservados 2025, Cd. de México
+    </div>
+
+   
+</body>
+
+</html>
